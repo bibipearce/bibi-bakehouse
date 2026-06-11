@@ -38,4 +38,4 @@ jobs:
         working-directory: client
 
       - name: Run CI checks
-        run: npm run test:ci-cd
+        run: npm run test:ci

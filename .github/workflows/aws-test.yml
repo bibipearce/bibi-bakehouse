@@ -41,10 +41,10 @@ jobs:
             client/package-lock.json
 
       - name: Install root dependencies
-        run: npm ci-cd
+        run: npm ci
 
       - name: Install client dependencies
-        run: npm ci-cd
+        run: npm ci
         working-directory: client
 
       - name: Build client assets
