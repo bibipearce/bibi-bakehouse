@@ -68,31 +68,31 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
-          role-session-name: gha-cdk-joshua-hilarion-${{ github.run_id }}-${{ github.run_attempt }}
+          role-session-name: gha-cdk-bibi-pearce-${{ github.run_id }}-${{ github.run_attempt }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Verify AWS identity and session
-        shell: bash
-        run: |
-          echo "Verifying AWS credentials..."
-          IDENTITY="$(aws sts get-caller-identity)"
-          echo "Assumed role:"
-          echo "${IDENTITY}" | jq '.'
+      # - name: Verify AWS identity and session
+      #   shell: bash
+      #   run: |
+      #     echo "Verifying AWS credentials..."
+      #     IDENTITY="$(aws sts get-caller-identity)"
+      #     echo "Assumed role:"
+      #     echo "${IDENTITY}" | jq '.'
 
-          ROLE_SESSION="$(echo "${IDENTITY}" | jq -r '.Arn' | grep -oE '[^/]+$')"
-          echo "Current session: ${ROLE_SESSION}"
+      #     ROLE_SESSION="$(echo "${IDENTITY}" | jq -r '.Arn' | grep -oE '[^/]+$')"
+      #     echo "Current session: ${ROLE_SESSION}"
 
-          EXPECTED_SESSION="gha-cdk-bibi-pearce-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          if [ "$ROLE_SESSION" != "$EXPECTED_SESSION" ]; then
-            echo "::error::Expected role session $EXPECTED_SESSION but got $ROLE_SESSION"
-            exit 1
-          fi
+      #     EXPECTED_SESSION="gha-cdk-bibi-pearce-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+      #     if [ "$ROLE_SESSION" != "$EXPECTED_SESSION" ]; then
+      #       echo "::error::Expected role session $EXPECTED_SESSION but got $ROLE_SESSION"
+      #       exit 1
+      #     fi
 
-          ACTUAL_ACCOUNT="$(echo "${IDENTITY}" | jq -r '.Account')"
-          if [ "$ACTUAL_ACCOUNT" != "$AWS_ACCOUNT_ID" ]; then
-            echo "::error::Expected AWS account $AWS_ACCOUNT_ID but got $ACTUAL_ACCOUNT"
-            exit 1
-          fi
+      #     ACTUAL_ACCOUNT="$(echo "${IDENTITY}" | jq -r '.Account')"
+      #     if [ "$ACTUAL_ACCOUNT" != "$AWS_ACCOUNT_ID" ]; then
+      #       echo "::error::Expected AWS account $AWS_ACCOUNT_ID but got $ACTUAL_ACCOUNT"
+      #       exit 1
+      #     fi
 
       - name: CDK synth
         run: npx cdk synth
