@@ -18,7 +18,7 @@ jobs:
       BAKEHOUSE_STACK_NAME: ${{ vars.BAKEHOUSE_STACK_NAME || 'bibi-pearce-bakehouse' }}
       AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID || '827602716979' }}
       AWS_REGION: ${{ vars.AWS_REGION || 'eu-west-2' }}
-      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN || vars.AWS_ROLE_ARN || 'arn:aws:cloudformation:eu-west-2:827602716979:stack/bibi-pearce-bakehouse/2e87dc90-663d-11f1-b0c2-02c3f9ec9355' }}
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN || vars.AWS_ROLE_ARN || 'arn:aws:iam::827602716979:role/github-actions-bibi-bakehouse' }}
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
